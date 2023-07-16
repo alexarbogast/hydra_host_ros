@@ -1,0 +1,12 @@
+controller_list:
+  - name: manipulator_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - za_joint_1
+      - za_joint_2
+      - za_joint_3
+      - za_joint_4
+      - za_joint_5
+      - za_joint_6

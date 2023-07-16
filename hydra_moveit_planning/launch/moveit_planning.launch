@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="rviz" default="true"/>
+
+  <!-- MoveIt Configuration -->
+  <arg name="pipeline" default="ompl"/>
+  <arg name="debug" default="false"/>
+  <arg name="load_robot_description" default="true"/>
+
+  <!-- The list of the joint_states topics of all combined robots to fuse to a complete topic -->
+  <arg name="joint_states_source_list" default="[rob1/joint_states, 
+                                                 rob2/joint_states, 
+                                                 rob3/joint_states]"/>
+            
+  <!-- publish the robot state (tf transforms) -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher">
+    <rosparam param="source_list"  subst_value="true">$(arg joint_states_source_list)</rosparam>
+    <param name="rate" value="30"/>
+  </node>
+
+  <!-- <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher">
+    <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
+    <param name="rate" value="60"/>
+  </node> -->
+
+  <!-- Launch za6 move group -->
+  <include file="$(find hydra_moveit_config)/launch/move_group.launch">
+    <arg name="moveit_controller_manager" value="hydra" />
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="pipeline" value="$(arg pipeline)"/>
+    <arg name="load_robot_description" value="$(arg load_robot_description)"/>
+  </include>
+
+  <!-- Run Rviz and load the hydra config  -->
+  <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" 
+        args="-d $(find hydra_moveit_planning)/config/hydra.rviz"/>
+</launch>
