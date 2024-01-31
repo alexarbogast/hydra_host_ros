@@ -1,0 +1,23 @@
+version: "3"
+services:
+  ros:
+    image: ros:noetic-hydra-host
+    network_mode: host
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: noetic_hydra_host
+    runtime: nvidia
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    user: ros
+    environment:
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - QT_X11_NOMITSHM=1
+    volumes:
+      - ~/.Xauthority:/root/.Xauthority:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ../:/home/ros/hydra_host_ws
+

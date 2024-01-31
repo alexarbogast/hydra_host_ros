@@ -1,9 +1,12 @@
-[submodule "bio_ik"]
-	path = bio_ik
-	url = https://github.com/TAMS-Group/bio_ik.git
-[submodule "hydra_description"]
-	path = hydra_description
-	url = git@github.com:alexarbogast/hydra_description.git
-[submodule "za_description"]
-	path = za_description
-	url = git@github.com:alexarbogast/za_description.git
+[submodule "src/bio_ik"]
+	path = src/bio_ik
+	url = git@github.com:TAMS-Group/bio_ik.git
+	branch = master
+[submodule "src/hydra_ros"]
+	path = src/hydra_ros
+	url = https://github.com/alexarbogast/hydra_ros
+	branch = ampf
+[submodule "src/za_ros"]
+	path = src/za_ros
+	url = https://github.com/alexarbogast/za_ros
+	branch = master
